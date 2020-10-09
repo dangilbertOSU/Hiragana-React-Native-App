@@ -36,16 +36,16 @@ const QuizWindow = (props) => {
 
 	const randomizeOptions = (newIndex) => {
 		const answerOptions = fourRandomNumbers(newIndex, hiraganaMap.length);
+		randomizeOrder(answerOptions);
 
-		const answerObjectsArray = [
-			hiraganaMap[newIndex],
+		const answerOptionsSorted = [
+			hiraganaMap[answerOptions[0]],
 			hiraganaMap[answerOptions[1]],
 			hiraganaMap[answerOptions[2]],
 			hiraganaMap[answerOptions[3]],
 		];
 
-		randomizeOrder(answerObjectsArray);
-		setAnswerOptions(answerObjectsArray);
+		setAnswerOptions(answerOptionsSorted);
 	};
 
 	const checkAnswer = (word) => {
@@ -69,6 +69,19 @@ const QuizWindow = (props) => {
 		} else notifyMessage("wrong!");
 	};
 
+	const option = (option) => (
+		<View style={styles.button} key={option.pronunciation}>
+			<TouchableOpacity
+				styles={styles.button}
+				onPress={() => checkAnswer(option.pronunciation)}
+			>
+				<Text style={styles.buttonText}>
+					{option.pronunciation}
+				</Text>
+			</TouchableOpacity>
+		</View>
+	);
+
 	return (
 		<View style={styles.container}>
 			{!gameStarted && (
@@ -91,6 +104,14 @@ const QuizWindow = (props) => {
 			)}
 			{gameStarted && (
 				<View>
+					<View style={styles.absolute}>
+						<TouchableOpacity
+							onPress={() => props.setAppMode("menu")}
+							style={styles.button}
+						>
+							<Text style={styles.buttonText}>Exit</Text>
+						</TouchableOpacity>
+					</View>
 					<View style={styles.centerText}>
 						<CharacterDisplay
 							character={
@@ -98,30 +119,7 @@ const QuizWindow = (props) => {
 							}
 						/>
 					</View>
-					{answerOptions &&
-						answerOptions.map((option) => {
-							return (
-								<View
-									style={styles.button}
-									key={option.pronunciation}
-								>
-									<TouchableOpacity
-										styles={styles.button}
-										onPress={() =>
-											checkAnswer(
-												option.pronunciation
-											)
-										}
-									>
-										<Text
-											style={styles.buttonText}
-										>
-											{option.pronunciation}
-										</Text>
-									</TouchableOpacity>
-								</View>
-							);
-						})}
+					{answerOptions && answerOptions.map(option)}
 				</View>
 			)}
 		</View>

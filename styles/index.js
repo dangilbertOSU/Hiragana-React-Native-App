@@ -21,6 +21,11 @@ const styles = StyleSheet.create({
 	centerText: {
 		alignSelf: "center",
 	},
+	absolute: {
+		marginLeft: 20,
+		marginTop: 40,
+		position: "absolute",
+	},
 });
 
 export default styles;

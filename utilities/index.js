@@ -37,22 +37,18 @@ const randomizeOrder = (array) => {
 	return array;
 };
 
-const generateRandomNumber = (notNumber, max) => {
-	const randomNumber = Math.floor(Math.random() * Math.floor(max));
-
-	if (notNumber.includes(randomNumber))
-		return generateRandomNumber(notNumber, max);
-
-	return randomNumber;
+const generateRandomNumber = (max) => {
+	return Math.floor(Math.random() * Math.floor(max));
 };
 
 const fourRandomNumbers = (answerIndex, max) => {
-	let randomArray = [answerIndex];
-	for (let i = 0; i < 3; i++) {
-		randomArray.push(generateRandomNumber(randomArray, max));
+	const indexSet = new Set([answerIndex]);
+
+	while (indexSet.size !== 4) {
+		indexSet.add(generateRandomNumber(max));
 	}
 
-	return randomArray;
+	return [...indexSet];
 };
 
 module.exports = {

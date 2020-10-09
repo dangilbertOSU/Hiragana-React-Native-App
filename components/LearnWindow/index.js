@@ -18,7 +18,7 @@ const LearnWindow = (props) => {
 	};
 
 	const config = {
-		velocityThreshold: 0.3,
+		velocityThreshold: 0.2,
 		directionalOffsetThreshold: 80,
 	};
 
@@ -27,11 +27,7 @@ const LearnWindow = (props) => {
 			onSwipeLeft={() => moveForward()}
 			onSwipeRight={() => moveBackward()}
 			config={config}
-			style={{
-				flex: 1,
-				backgroundColor: "#fff",
-				justifyContent: "center",
-			}}
+			style={styles.centerText}
 		>
 			<View>
 				<View style={styles.centerText}>
